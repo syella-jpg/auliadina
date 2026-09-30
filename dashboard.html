@@ -55,7 +55,11 @@ nav.scrolled {
   background:var(--ink); color:white !important; padding:11px 18px;
   border-radius:999px;
 }
-.menu { display:none; font-size:25px; cursor:pointer; }
+.menu {
+  display:none; padding:0; border:0; background:transparent; color:var(--ink);
+  font:inherit; font-size:25px; line-height:1; cursor:pointer;
+}
+.menu:focus-visible { outline:2px solid var(--accent-dark); outline-offset:4px; border-radius:4px; }
 
 /* HERO */
 .hero {
@@ -192,7 +196,7 @@ footer { padding:35px 0 45px; display:flex; justify-content:space-between; color
 <nav id="nav">
   <div class="container nav-inner">
     <a class="logo" href="#">Aulia Dina.</a>
-    <div class="menu" id="menu">☰</div>
+    <button class="menu" id="menu" type="button" aria-label="Open navigation" aria-controls="links" aria-expanded="false">☰</button>
     <div class="nav-links" id="links">
       <a href="#about">About</a>
       <a href="#performance">Performance</a>
@@ -213,7 +217,7 @@ footer { padding:35px 0 45px; display:flex; justify-content:space-between; color
       brand partnerships, endorsements and creative collaborations.
     </p>
     <div class="actions">
-      <a class="btn primary" href="https://www.instagram.com/aulia.dinaaa" target="_blank">View Instagram ↗</a>
+      <a class="btn primary" href="https://www.instagram.com/aulia.dinaaa" target="_blank" rel="noopener noreferrer">View Instagram ↗</a>
       <a class="btn secondary" href="#contact">Work with me</a>
     </div>
   </div>
@@ -3976,6 +3980,11 @@ gdYwmgK+/w8aY760zGB1MAAAAABJRU5ErkJggg==" alt="Aulia Dina">
           <h3>Product Feature</h3>
           <p>Product-focused content for launches, gifting campaigns and carefully selected collaborations.</p>
         </div>
+        <div><span class="tag">Product</span><span class="tag">Launch</span></div>
+      </article>
+    </div>
+  </div>
+</section>
 
 <section id="contact">
   <div class="container">
@@ -3988,14 +3997,14 @@ gdYwmgK+/w8aY760zGB1MAAAAABJRU5ErkJggg==" alt="Aulia Dina">
       </p>
       <div class="actions" style="justify-content:center">
         <a class="btn primary" href="/cdn-cgi/l/email-protection#7f171a1313103f1e0a13161e1b16111e511c1012400c0a1d151a1c0b423d0d1e111b5a4d4f3c1013131e1d100d1e0b1610115a4d4f36110e0a160d06">Email for collaboration →</a>
-        <a class="btn secondary" href="https://www.instagram.com/aulia.dinaaa" target="_blank">Instagram ↗</a>
+        <a class="btn secondary" href="https://www.instagram.com/aulia.dinaaa" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
       </div>
     </div>
 
     <footer>
       <span>© 2026 Aulia Dina. All rights reserved.</span>
       <div class="social">
-        <a href="https://www.instagram.com/aulia.dinaaa" target="_blank">@aulia.dinaaa</a>
+        <a href="https://www.instagram.com/aulia.dinaaa" target="_blank" rel="noopener noreferrer">@aulia.dinaaa</a>
         <a href="#about">Back to top ↑</a>
       </div>
     </footer>
@@ -4013,11 +4022,15 @@ window.addEventListener('scroll', () => {
 });
 
 menu.addEventListener('click', () => {
-  links.classList.toggle('open');
+  const isOpen = links.classList.toggle('open');
+  menu.setAttribute('aria-expanded', isOpen);
 });
 
 document.querySelectorAll('.nav-links a').forEach(a => {
-  a.addEventListener('click', () => links.classList.remove('open'));
+  a.addEventListener('click', () => {
+    links.classList.remove('open');
+    menu.setAttribute('aria-expanded', 'false');
+  });
 });
 </script>
 </body>
